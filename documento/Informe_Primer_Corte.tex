@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{teal},
+    stringstyle=\color{brown},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single
+}
+
+\begin{document}
+
+% -------------------- PORTADA --------------------
+\begin{titlepage}
+    \begin{center}
+        \vspace*{0.5cm}
+
+        % Logo de la Universidad
+        \IfFileExists{Escudo_UD.png}{\includegraphics[width=7cm]{Escudo_UD.png}}{\vspace{3cm}}
+
+        \vspace{1.8cm}
+
+        {\Large \textbf{Universidad Distrital Francisco Jos\'e de Caldas}}\\[0.35cm]
+        {\large Facultad de Ingenier\'ia}\\[0.25cm]
+        {\large Proyecto Curricular Ingenier\'ia de Sistemas}
+
+        \vspace{2.2cm}
+
+        {\LARGE \textbf{Trabajo Primer Corte}}\\[0.2cm]
+
+        \vfill
+
+        \begin{center}
+            \textbf{Integrantes:} \\[0.2cm]
+            Nelson David Posso Su\'arez (20212020132)\\[0.2cm]
+            Julian Cabrera \\[0.2cm]
+            Edward Garcia \\[0.2cm]
+            Juan Cordoba \\[0.2cm]
+            \textbf{Docente:} Jhon Alejandro Varon Robayo\\[0.25cm]
+            \textbf{Asignatura:} Mineríá de Datos (020-81)\\[0.25cm]
+            \textbf{2026 - I}
+        \end{center}
+
+        \vspace{0.5cm}
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introducción}
+Este informe documenta el avance del trabajo de primer corte de minería de datos usando el conjunto \texttt{Cancer\_Data.csv}. Se presenta lo realizado hasta el momento en el notebook, cubriendo: comprensión del problema, comprensión de los datos, limpieza y preparación.
+
+\section{Comprensión del problema}
+
+\subsection{Problema abordado}
+Se busca analizar características clínicas medidas en tumores mamarios para diferenciar entre diagnósticos \textbf{benignos (B)} y \textbf{malignos (M)}, apoyando una clasificación temprana y confiable.
+
+\subsection{Decisión que se puede apoyar}
+Con este análisis se pueden priorizar casos con mayor probabilidad de malignidad para evaluación médica más rápida, apoyo al tamizaje y seguimiento clínico.
+
+\subsection{Usuarios del análisis}
+Este análisis puede ser usado por personal médico (oncología, radiología, medicina general), equipos de apoyo diagnóstico, investigadores biomédicos y gestores hospitalarios.
+
+\subsection{Importancia}
+La detección oportuna impacta directamente el pronóstico y tratamiento del cáncer de mama. Un análisis adecuado puede reducir retrasos y mejorar el uso de recursos clínicos.
+
+\subsection{Preguntas guía}
+\begin{itemize}
+    \item \textbf{Tipo de problema:} principalmente predictivo, con apoyo descriptivo en la etapa exploratoria.
+    \item \textbf{Variable más importante:} \texttt{diagnosis}, al ser la variable objetivo.
+    \item \textbf{Riesgo de mala interpretación:} decisiones clínicas erradas, especialmente falsos negativos (clasificar un caso maligno como benigno).
+\end{itemize}
+
+\section{Comprensión de los datos}
+
+\subsection{Fuente}
+\url{https://www.kaggle.com/datasets/erdemtaha/cancer-data}
+
+\subsection{Descripción}
+El dataset contiene mediciones morfológicas de núcleos celulares obtenidas de imágenes de masas mamarias (biopsia por aspiración con aguja fina). El objetivo es distinguir entre tumores benignos y malignos.
+
+\subsection{Variables del dataset}
+\begin{longtable}{p{0.3\textwidth} p{0.7\textwidth}}
+\toprule
+\textbf{Variable} & \textbf{Descripción} \\
+\midrule
+\endhead
+\texttt{id} & Identificador único del caso/paciente. \\
+\texttt{diagnosis} & Diagnóstico (B = Benigno, M = Maligno). \\
+\texttt{radius\_mean} & Promedio del radio. \\
+\texttt{texture\_mean} & Promedio de textura (variación de niveles de gris). \\
+\texttt{perimeter\_mean} & Promedio del perímetro. \\
+\texttt{area\_mean} & Promedio del área. \\
+\texttt{smoothness\_mean} & Promedio de suavidad. \\
+\texttt{compactness\_mean} & Promedio de compacidad. \\
+\texttt{concavity\_mean} & Promedio de concavidad. \\
+\texttt{concave points\_mean} & Promedio de puntos cóncavos. \\
+\texttt{symmetry\_mean} & Promedio de simetría. \\
+\texttt{fractal\_dimension\_mean} & Promedio de dimensión fractal. \\
+\texttt{radius\_se} & Error estándar del radio. \\
+\texttt{texture\_se} & Error estándar de textura. \\
+\texttt{perimeter\_se} & Error estándar del perímetro. \\
+\texttt{area\_se} & Error estándar del área. \\
+\texttt{smoothness\_se} & Error estándar de suavidad. \\
+\texttt{compactness\_se} & Error estándar de compacidad. \\
+\texttt{concavity\_se} & Error estándar de concavidad. \\
+\texttt{concave points\_se} & Error estándar de puntos cóncavos. \\
+\texttt{symmetry\_se} & Error estándar de simetría. \\
+\texttt{fractal\_dimension\_se} & Error estándar de dimensión fractal. \\
+\texttt{radius\_worst} & Valor peor/máximo del radio. \\
+\texttt{texture\_worst} & Valor peor/máximo de textura. \\
+\texttt{perimeter\_worst} & Valor peor/máximo del perímetro. \\
+\texttt{area\_worst} & Valor peor/máximo del área. \\
+\texttt{smoothness\_worst} & Valor peor/máximo de suavidad. \\
+\texttt{compactness\_worst} & Valor peor/máximo de compacidad. \\
+\texttt{concavity\_worst} & Valor peor/máximo de concavidad. \\
+\texttt{concave points\_worst} & Valor peor/máximo de puntos cóncavos. \\
+\texttt{symmetry\_worst} & Valor peor/máximo de simetría. \\
+\texttt{fractal\_dimension\_worst} & Valor peor/máximo de dimensión fractal. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Tipos de variables, faltantes y tamaño}
+\begin{itemize}
+    \item Variables categóricas: 1 (\texttt{diagnosis}).
+    \item Variables numéricas: 31 (\texttt{id} + 30 mediciones clínicas continuas).
+    \item Faltantes detectados inicialmente: una columna extra sin nombre \texttt{Unnamed: 32}, completamente vacía.
+    \item Tamaño del dataset tras limpieza: 569 filas y 32 columnas.
+\end{itemize}
+
+\subsection{Preguntas guía}
+\begin{itemize}
+    \item \textbf{Variables más relevantes:} medidas de tamaño, forma e irregularidad del tumor (por ejemplo \texttt{radius\_mean}, \texttt{perimeter\_mean}, \texttt{area\_mean}, \texttt{radius\_worst}, \texttt{concave points\_worst}).
+    \item \textbf{Variables redundantes o inútiles:} pueden existir variables que aportan información similar entre sus versiones \texttt{mean}, \texttt{se} y \texttt{worst}; además \texttt{id} no se usa para modelar el fenómeno clínico.
+    \item \textbf{Sesgos:} hay más casos benignos que malignos, lo cual implica desbalance de clases.
+    \item \textbf{Calidad de datos:} se encontró una columna vacía por formato del archivo y se removió en preparación.
+\end{itemize}
+
+\section{Limpieza y preparación}
+
+\subsection{Código aplicado}
+\begin{lstlisting}
+# Limpieza y preparacion del dataset
+
+df_prep = df.copy()
+
+# 1) Verificacion de valores nulos
+print(df_prep.isna().sum().sort_values(ascending=False))
+print(f"Total de nulos: {df_prep.isna().sum().sum()}")
+
+# 2) Verificacion de duplicados
+print(f"Filas duplicadas completas: {df_prep.duplicated().sum()}")
+print(f"Id duplicados: {df_prep['id'].duplicated().sum()}")
+
+# 3) Eliminacion de columna identificadora para analisis/modelado
+df_prep = df_prep.drop(columns=["id"])
+
+# 4) Transformacion de la variable objetivo a formato numerico
+df_prep["diagnosis_num"] = df_prep["diagnosis"].map({"B": 0, "M": 1})
+\end{lstlisting}
+
+\subsection{Justificación de cada decisión}
+\begin{itemize}
+    \item \textbf{Tratamiento de nulos:} no se imputaron valores porque, tras remover la columna vacía, no hubo nulos en las variables útiles.
+    \item \textbf{Eliminación de duplicados:} no se eliminaron filas porque no se detectaron duplicados de filas ni de \texttt{id}.
+    \item \textbf{Transformaciones:}
+    \begin{itemize}
+        \item Se eliminó \texttt{id} en el dataset de trabajo porque es un identificador, no una característica clínica.
+        \item Se creó \texttt{diagnosis\_num} (B=0, M=1) para facilitar análisis cuantitativos y futuras etapas de modelado.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Preguntas guía}
+\begin{itemize}
+    \item \textbf{¿Qué pasa si NO limpian los datos?} Se pueden mantener errores de formato, columnas no informativas y estructuras inconsistentes que afecten análisis posteriores.
+    \item \textbf{¿Qué decisiones podrían alterar los resultados?} Imputar nulos, eliminar filas/columnas, codificar variables o mantener identificadores puede cambiar el comportamiento de análisis y modelos.
+    \item \textbf{¿Están perdiendo información al limpiar?} En este caso no se perdió información clínica relevante: se eliminó una columna vacía y una columna de identificación; se conservó el resto de variables clínicas.
+\end{itemize}
+
+\section{EDA – Análisis Exploratorio}
+Falta
+
+\end{document}
