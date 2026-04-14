@@ -9,6 +9,13 @@ Los histogramas muestran que varias variables presentan distribuciones asimétri
 En general, los casos malignos tienden a concentrarse en valores más altos de variables relacionadas con tamaño e irregularidad, especialmente \texttt{area\_mean}, \texttt{concavity\_mean} y \texttt{concave points\_mean}.  
 En contraste, los casos benignos se agrupan más hacia valores bajos y con menor dispersión.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/graphs/grafica_1.png}
+    \caption{Distribución univariada de las variables morfológicas (promedio) comparando diagnósticos benignos y malignos.}
+    \label{fig:histogramas}
+\end{figure}
+
 Los boxplots refuerzan esta observación.  
 Variables como \texttt{concavity\_mean} y \texttt{concave points\_mean} muestran una diferenciación más clara entre clases, lo que sugiere mayor capacidad discriminante.  
 Por otro lado, variables como \texttt{texture\_mean}, \texttt{smoothness\_mean}, \texttt{symmetry\_mean} y \texttt{fractal\_dimension\_mean} presentan mayor solapamiento, por lo que su poder de separación individual parece menor.
@@ -22,6 +29,13 @@ Esto sugiere que los tumores de mayor tamaño suelen presentar también formas m
 Además, los casos malignos tienden a concentrarse en regiones de valores más altos, mientras que los benignos permanecen en rangos más bajos.  
 Esto indica que las variables morfológicas no solo describen el tamaño del tumor, sino también características asociadas con su grado de irregularidad.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/graphs/grafica_12.png}
+    \caption{Relación bivariada entre area\_mean y concave points\_mean, diferenciada por diagnóstico.}
+    \label{fig:scatter_points}
+\end{figure}
+
 \subsection{Matriz de correlación}
 
 La matriz de correlación evidencia relaciones lineales importantes entre varias variables.  
@@ -30,6 +44,13 @@ También se observa una relación destacada entre \texttt{concavity\_mean} y \te
 
 En cambio, variables como \texttt{fractal\_dimension\_mean} y \texttt{symmetry\_mean} muestran correlaciones más débiles con el resto, por lo que aportan información complementaria pero menos dominante dentro del conjunto.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/graphs/grafica_16.png}
+    \caption{Matriz de correlación de Pearson para las variables morfológicas promedio.}
+    \label{fig:heatmap}
+\end{figure}
+
 \subsection{Análisis multivariado}
 
 El \texttt{pairplot} permite observar simultáneamente la relación entre las variables seleccionadas y el diagnóstico.  
@@ -37,6 +58,13 @@ Este gráfico confirma que algunas variables, especialmente \texttt{area\_mean},
 Sin embargo, también se aprecia solapamiento entre observaciones, lo que indica que no existe una separación perfecta usando una sola variable.
 
 En conjunto, el análisis multivariado sugiere que la combinación de varias características morfológicas puede mejorar la capacidad de discriminación entre tumores benignos y malignos.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/graphs/grafica_17.png}
+    \caption{Gráfico de dispersión multivariado (Pairplot) de las principales variables.}
+    \label{fig:pairplot}
+\end{figure}
 
 \subsection{Conclusión del EDA}
 

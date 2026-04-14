@@ -1,0 +1,15 @@
+\section{Interpretación de resultados}
+
+Tras completar el análisis exploratorio de los datos, se han obtenido las siguientes conclusiones fundamentales que responden a los objetivos planteados en la metodología CRISP-DM:
+
+\subsection{Identificación de patrones de malignidad}
+El análisis univariado y bivariado permite concluir que las variables relacionadas con el tamaño del tumor (\texttt{area\_mean}, \texttt{radius\_mean} y \texttt{perimeter\_mean}) presentan una diferencia significativa entre las clases. Los tumores diagnosticados como malignos tienden a presentar valores sustancialmente más elevados en estas dimensiones. Específicamente, el \texttt{area\_mean} se perfila como uno de los indicadores individuales más potentes para la diferenciación.
+
+\subsection{Complejidad morfológica y diagnóstico}
+Más allá del tamaño, la irregularidad del contorno del tumor es un factor crítico. Las variables \texttt{concavity\_mean} y \texttt{concave points\_mean} mostraron una separación notable entre los diagnósticos benignos y malignos. Esto confirma que los núcleos celulares en tejidos malignos no solo son más grandes, sino que presentan una estructura periférica mucho más compleja e irregular, lo cual es una característica clínica clave en la oncología para identificar crecimientos agresivos.
+
+\subsection{Redundancia e información complementaria}
+Se ha identificado una altísima correlación (superior a 0.9) entre \texttt{radius}, \texttt{perimeter} y \texttt{area}. Esto implica que, para futuros modelos predictivos, es posible utilizar únicamente uno de estos descriptores sin perder información relevante, reduciendo así la complejidad computacional. Por el contrario, variables como \texttt{smoothness\_mean} y \texttt{fractal\_dimension\_mean} mostraron mayor solapamiento entre clases, sugiriendo que, aunque describen la textura y finura de los bordes, tienen un peso menor en la discriminación primaria.
+
+\subsection{Accionabilidad de los resultados}
+La clara separación observada en los \texttt{scatterplots} y el análisis multivariado (\texttt{pairplot}) sugiere que un modelo de clasificación (como Regresión Logística o Bosques Aleatorios) podría alcanzar una alta precisión. Se recomienda priorizar las variables de tamaño y concavidad en la implementación de una herramienta de apoyo al diagnóstico para el personal médico.
