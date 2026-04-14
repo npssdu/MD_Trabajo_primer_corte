@@ -57,7 +57,7 @@
             \textbf{Integrantes:} \\[0.2cm]
             Nelson David Posso Su\'arez (20212020132)\\[0.2cm]
             Julian Cabrera \\[0.2cm]
-            Edward Garcia \\[0.2cm]
+            Edward Julian Garcia Gaitan 20212020136 \\[0.2cm]
             Juan Cordoba \\[0.2cm]
             \textbf{Docente:} Jhon Alejandro Varon Robayo\\[0.25cm]
             \textbf{Asignatura:} Mineríá de Datos (020-81)\\[0.25cm]
@@ -201,7 +201,58 @@ df_prep["diagnosis_num"] = df_prep["diagnosis"].map({"B": 0, "M": 1})
     \item \textbf{¿Están perdiendo información al limpiar?} En este caso no se perdió información clínica relevante: se eliminó una columna vacía y una columna de identificación; se conservó el resto de variables clínicas.
 \end{itemize}
 
-\section{EDA – Análisis Exploratorio}
-Falta
+% filepath: c:\Users\Julian Garcia\Documents\Uni\10\Minería de Datos\MD_Trabajo_primer_corte\documento\Informe_Primer_Corte.tex
+\section{Análisis Exploratorio de Datos (EDA)}
+
+En esta etapa se realizó un análisis exploratorio de las variables seleccionadas de tipo \texttt{mean}, con el objetivo de identificar patrones de distribución, relaciones entre variables y diferencias entre las clases \texttt{B} (benigno) y \texttt{M} (maligno).  
+Para mantener el análisis enfocado, se excluyeron \texttt{radius\_mean} y \texttt{perimeter\_mean} en algunos apartados, debido a su alta relación con \texttt{area\_mean} y a la redundancia conceptual entre estas variables.
+
+\subsection{Análisis univariado}
+
+Los histogramas muestran que varias variables presentan distribuciones asimétricas y una separación visible entre los diagnósticos benigno y maligno.  
+En general, los casos malignos tienden a concentrarse en valores más altos de variables relacionadas con tamaño e irregularidad, especialmente \texttt{area\_mean}, \texttt{concavity\_mean} y \texttt{concave points\_mean}.  
+En contraste, los casos benignos se agrupan más hacia valores bajos y con menor dispersión.
+
+Los boxplots refuerzan esta observación.  
+Variables como \texttt{concavity\_mean} y \texttt{concave points\_mean} muestran una diferenciación más clara entre clases, lo que sugiere mayor capacidad discriminante.  
+Por otro lado, variables como \texttt{texture\_mean}, \texttt{smoothness\_mean}, \texttt{symmetry\_mean} y \texttt{fractal\_dimension\_mean} presentan mayor solapamiento, por lo que su poder de separación individual parece menor.
+
+\subsection{Relaciones bivariadas}
+
+Los scatterplots construidos usando \texttt{area\_mean} como referencia muestran relaciones positivas con varias variables del conjunto.  
+En particular, se observa que al aumentar \texttt{area\_mean} también tienden a aumentar variables como \texttt{concavity\_mean}, \texttt{concave points\_mean} y \texttt{compactness\_mean}.  
+Esto sugiere que los tumores de mayor tamaño suelen presentar también formas más irregulares.
+
+Además, los casos malignos tienden a concentrarse en regiones de valores más altos, mientras que los benignos permanecen en rangos más bajos.  
+Esto indica que las variables morfológicas no solo describen el tamaño del tumor, sino también características asociadas con su grado de irregularidad.
+
+\subsection{Matriz de correlación}
+
+La matriz de correlación evidencia relaciones lineales importantes entre varias variables.  
+Se aprecia una fuerte asociación entre las variables relacionadas con tamaño, como \texttt{area\_mean}, \texttt{radius\_mean} y \texttt{perimeter\_mean}, lo cual confirma que contienen información parcialmente redundante.  
+También se observa una relación destacada entre \texttt{concavity\_mean} y \texttt{concave points\_mean}, lo que indica que ambas capturan aspectos similares de la morfología del tumor.
+
+En cambio, variables como \texttt{fractal\_dimension\_mean} y \texttt{symmetry\_mean} muestran correlaciones más débiles con el resto, por lo que aportan información complementaria pero menos dominante dentro del conjunto.
+
+\subsection{Análisis multivariado}
+
+El \texttt{pairplot} permite observar simultáneamente la relación entre las variables seleccionadas y el diagnóstico.  
+Este gráfico confirma que algunas variables, especialmente \texttt{area\_mean}, \texttt{concavity\_mean} y \texttt{concave points\_mean}, ayudan a separar parcialmente las clases \texttt{B} y \texttt{M}.  
+Sin embargo, también se aprecia solapamiento entre observaciones, lo que indica que no existe una separación perfecta usando una sola variable.
+
+En conjunto, el análisis multivariado sugiere que la combinación de varias características morfológicas puede mejorar la capacidad de discriminación entre tumores benignos y malignos.
+
+\subsection{Conclusión del EDA}
+
+El análisis exploratorio muestra que las variables más relevantes para diferenciar entre diagnóstico benigno y maligno son aquellas asociadas al tamaño y a la irregularidad de la masa, en especial \texttt{area\_mean}, \texttt{concavity\_mean} y \texttt{concave points\_mean}.  
+También se confirma la existencia de correlaciones fuertes entre algunas variables, lo que sugiere redundancia parcial en el conjunto de datos.
+
+Por esta razón, en etapas posteriores del proyecto se recomienda:
+\begin{itemize}
+    \item priorizar variables con mayor capacidad de separación entre clases;
+    \item revisar la multicolinealidad entre variables altamente correlacionadas;
+    \item considerar técnicas de selección de características;
+    \item tener en cuenta el desbalance entre clases al construir modelos.
+\end{itemize}
 
 \end{document}
