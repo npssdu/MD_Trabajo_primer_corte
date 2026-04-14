@@ -1,0 +1,24 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Introducci\'on}{2}{section*.1}%
+\contentsline {section}{Comprensión del problema}{3}{section*.2}%
+\contentsline {subsection}{Problema abordado}{3}{subsection*.3}%
+\contentsline {subsection}{Decisión que se puede apoyar}{3}{subsection*.4}%
+\contentsline {subsection}{Usuarios del análisis}{3}{subsection*.5}%
+\contentsline {subsection}{Importancia}{3}{subsection*.6}%
+\contentsline {subsection}{Preguntas guía}{3}{subsection*.7}%
+\contentsline {section}{Comprensión de los datos}{4}{section*.8}%
+\contentsline {subsection}{Fuente}{4}{subsection*.9}%
+\contentsline {subsection}{Descripción}{4}{subsection*.10}%
+\contentsline {subsection}{Variables del dataset}{4}{subsection*.11}%
+\contentsline {subsection}{Tipos de variables, faltantes y tamaño}{5}{subsection*.12}%
+\contentsline {subsection}{Preguntas guía}{5}{subsection*.13}%
+\contentsline {section}{Limpieza y preparación}{7}{section*.14}%
+\contentsline {subsection}{Código aplicado}{7}{subsection*.15}%
+\contentsline {subsection}{Justificación de cada decisión}{7}{subsection*.16}%
+\contentsline {subsection}{Preguntas guía}{8}{subsection*.17}%
+\contentsline {section}{Análisis Exploratorio de Datos (EDA)}{9}{section*.18}%
+\contentsline {subsection}{Análisis univariado}{9}{subsection*.19}%
+\contentsline {subsection}{Relaciones bivariadas}{9}{subsection*.20}%
+\contentsline {subsection}{Matriz de correlación}{10}{subsection*.21}%
+\contentsline {subsection}{Análisis multivariado}{10}{subsection*.22}%
+\contentsline {subsection}{Conclusión del EDA}{10}{subsection*.23}%
