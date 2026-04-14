@@ -1,0 +1,156 @@
+% ============================================================
+%  Documento APA 7 – Minería de Datos, Primer Corte
+%  Compilar con: xelatex (para fuente Aptos vía fontspec)
+% ============================================================
+\documentclass[12pt]{article}
+
+% ---------- CODIFICACIÓN & IDIOMA ----------
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}   % respaldo si no es XeLaTeX
+\usepackage[T1]{fontenc}
+
+% ---------- FUENTE: Aptos (Bierstadt en fontspec/XeLaTeX) ----------
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  % Intentamos cargar Aptos, luego Calibri, luego Liberation Sans (estándar en Linux)
+  \IfFontExistsTF{Aptos}{%
+    \setmainfont{Aptos}%
+  }{%
+    \IfFontExistsTF{Calibri}{%
+      \setmainfont{Calibri}%
+    }{%
+      \IfFontExistsTF{Liberation Sans}{%
+        \setmainfont{Liberation Sans}%
+      }{%
+        \usepackage{lmodern}%
+      }%
+    }%
+  }
+\else
+  \usepackage{lmodern}
+\fi
+
+% ---------- GEOMETRÍA APA 7 ----------
+% APA 7: márgenes de 1 pulgada (2.54 cm) por todos los lados
+\usepackage{geometry}
+\geometry{
+  top    = 2.54cm,
+  bottom = 2.54cm,
+  left   = 2.54cm,
+  right  = 2.54cm
+}
+
+% ---------- INTERLINEADO 1.5 ----------
+\usepackage{setspace}
+\setstretch{1.5}
+
+% ---------- SANGRÍA DE PRIMERA LÍNEA ----------
+% APA 7: cada párrafo lleva sangría de 0.5 in (1.27 cm)
+\usepackage{indentfirst}
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}   % sin espacio extra entre párrafos
+
+% ---------- JERARQUÍA DE TÍTULOS (APA 7, 5 niveles) ----------
+% Nivel 1 – centrado, negrita
+% Nivel 2 – alineado izquierda, negrita
+% Nivel 3 – alineado izquierda, negrita cursiva
+% Nivel 4 – con sangría, negrita, termina en punto
+% Nivel 5 – con sangría, negrita cursiva, termina en punto
+\usepackage{titlesec}
+
+% Sin numeración
+\setcounter{secnumdepth}{0}
+
+% Nivel 1: \section  – centrado, negrita, 12pt
+\titleformat{\section}
+  {\normalfont\bfseries\normalsize\centering}
+  {}{0pt}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+% Nivel 2: \subsection – izquierda, negrita
+\titleformat{\subsection}
+  {\normalfont\bfseries\normalsize\raggedright}
+  {}{0pt}{}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+% Nivel 3: \subsubsection – izquierda, cursiva sin negrita
+\titleformat{\subsubsection}
+  {\normalfont\itshape\normalsize\raggedright}
+  {}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+% ---------- TABLA DE CONTENIDOS  ----------
+\usepackage{tocloft}
+
+\renewcommand{\contentsname}{\'Indice}
+
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\normalsize}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Espaciado del título
+\setlength{\cftaftertoctitleskip}{20pt}
+
+% Quitar puntos de relleno (estilo APA 7 limpio)
+\renewcommand{\cftsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsecdotsep}{\cftnodots}
+
+% ---------- PAQUETES DE TABLAS ----------
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+% ---------- GRÁFICOS ----------
+\usepackage{graphicx}
+
+% ---------- COLOR ----------
+\usepackage{xcolor}
+
+% ---------- CÓDIGO FUENTE ----------
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{teal},
+    stringstyle=\color{brown},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single
+}
+
+% ---------- HIPERVÍNCULOS ----------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+% ============================================================
+\begin{document}
+
+% -------------------- PORTADA APA 7 --------------------
+\input{content/titulo}
+
+% -------------------- TABLA DE CONTENIDOS --------------------
+\tableofcontents
+\newpage
+
+% -------------------- CONTENIDO --------------------
+\input{content/introduccion}
+\newpage
+
+% --- COMPRENSIÓN ---
+\input{content/comprension/problema}
+\newpage
+\input{content/comprension/datos}
+\newpage
+\input{content/comprension/limpieza}
+\newpage
+
+% --- EDA ---
+\input{content/EDA/eda}
+
+\end{document}
